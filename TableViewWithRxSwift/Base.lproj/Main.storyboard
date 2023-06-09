@@ -33,7 +33,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="wlk-F6-PXH">
-                                <rect key="frame" x="0.0" y="103" width="393" height="715"/>
+                                <rect key="frame" x="0.0" y="159" width="393" height="659"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="72A-rm-DS6" customClass="SportsTableViewCell" customModule="TableViewWithRxSwift" customModuleProvider="target">
@@ -46,24 +46,35 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="V9L-Y8-uvU">
+                                <rect key="frame" x="0.0" y="103" width="393" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="v9U-CE-NXE"/>
+                                </connections>
+                            </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="V9L-Y8-uvU" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="3hH-RN-quH"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wlk-F6-PXH" secondAttribute="trailing" id="4cB-aL-k2L"/>
                             <constraint firstItem="wlk-F6-PXH" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="6pj-ux-4Od"/>
-                            <constraint firstItem="wlk-F6-PXH" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="DSy-CB-3BN"/>
+                            <constraint firstItem="V9L-Y8-uvU" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Bbg-ol-Kcd"/>
+                            <constraint firstItem="wlk-F6-PXH" firstAttribute="top" secondItem="V9L-Y8-uvU" secondAttribute="bottom" id="R1Z-7y-nW0"/>
+                            <constraint firstItem="V9L-Y8-uvU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="XfH-US-ls7"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="wlk-F6-PXH" secondAttribute="bottom" id="kqs-4N-5f1"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="TmY-cf-2GU"/>
                     <connections>
+                        <outlet property="searchBar" destination="V9L-Y8-uvU" id="0Lj-Bn-xlQ"/>
                         <outlet property="tableView" destination="wlk-F6-PXH" id="GZc-8J-9Oa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-866" y="61"/>
+            <point key="canvasLocation" x="-866.41221374045801" y="60.563380281690144"/>
         </scene>
         <!--Image View Controller-->
         <scene sceneID="Ssk-rS-m7c">

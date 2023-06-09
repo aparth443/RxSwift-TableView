@@ -73,6 +73,7 @@
 				695403E32A30A0BF002729D6 /* AppDelegate.swift */,
 				695403E52A30A0BF002729D6 /* SceneDelegate.swift */,
 				695403E72A30A0BF002729D6 /* ViewController.swift */,
+				691C1EBE2A32017A0070F0B0 /* ImageViewController.swift */,
 				695403E92A30A0BF002729D6 /* Main.storyboard */,
 				695403EC2A30A0C2002729D6 /* Assets.xcassets */,
 				695403EE2A30A0C2002729D6 /* LaunchScreen.storyboard */,
@@ -80,7 +81,6 @@
 				691C1EB82A31F70A0070F0B0 /* Sports.swift */,
 				691C1EBA2A31F8C80070F0B0 /* SportsTableViewCell.swift */,
 				691C1EBB2A31F8C80070F0B0 /* SportsTableViewCell.xib */,
-				691C1EBE2A32017A0070F0B0 /* ImageViewController.swift */,
 			);
 			path = TableViewWithRxSwift;
 			sourceTree = "<group>";
