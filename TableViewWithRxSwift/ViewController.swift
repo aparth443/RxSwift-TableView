@@ -8,23 +8,42 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RxDataSources
+
 
 class ViewController: UIViewController,UISearchBarDelegate {
 
     
     @IBOutlet weak var tableView: UITableView!
-    
     @IBOutlet weak var searchBar: UISearchBar!
     
-    let sports = BehaviorRelay.init(value: [
-    Sports(name: "Badminton", image: "badminton"),
-    Sports(name: "Cricket", image: "cricket"),
-    Sports(name: "Rugby", image: "rugby"),
-    Sports(name: "Hockey", image: "hockey"),
-    Sports(name: "Football", image: "football")
+    let sportsItemsSectioned = BehaviorRelay.init(value: [
+    SectionModel(header: "Ball Games", items: [
+        Sports(name: "Cricket", image: "cricket"),
+        Sports(name: "Hockey", image: "hockey"),
+        Sports(name: "Football", image: "football")
+    ]),
+    SectionModel(header: "Without Ball Games", items: [
+        Sports(name: "Badminton", image: "badminton"),
+        Sports(name: "Rugby", image: "rugby"),
+    ])
     ])
     
     let disposeBag = DisposeBag()
+    
+    let dataSource = RxTableViewSectionedReloadDataSource<SectionModel>(configureCell: {
+        datasource, tv, indexpath, item in
+        let cell: SportsTableViewCell = tv.dequeueReusableCell(withIdentifier: "cell", for: indexpath) as! SportsTableViewCell
+        cell.sportsName.text = item.name
+        cell.imageName.image = UIImage.init(named: item.image)
+        
+        return cell
+    },
+    titleForHeaderInSection: {
+        datasource, index in
+        return datasource.sectionModels[index].header
+    }
+    )
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,19 +52,19 @@ class ViewController: UIViewController,UISearchBarDelegate {
         
         tableView.register(UINib(nibName: "SportsTableViewCell", bundle: nil), forCellReuseIdentifier: "cell")
         
-        let searchQuery = searchBar.rx.text.orEmpty
-            .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
+        let searchQuery = searchBar.rx.text.orEmpty.throttle(.milliseconds(300), scheduler: MainScheduler.instance)
             .distinctUntilChanged()
             .map ({ query in
-                self.sports.value.filter ({ game in
-                    query.isEmpty || game.name.lowercased().contains(query.lowercased())
+                self.sportsItemsSectioned.value.map({
+                    sectionModel in
+                    SectionModel(header: sectionModel.header, items: sectionModel.items.filter({
+                        sport in
+                        query.isEmpty || sport.name.lowercased().contains(query.lowercased())
+                    }))
                 })
             })
-            .bind(to: tableView.rx.items(cellIdentifier: "cell", cellType: SportsTableViewCell.self)){
-            (tv, item, cell) in
-            cell.sportsName.text = item.name
-            cell.imageName.image = UIImage(named: item.image)
-        }.disposed(by: disposeBag)
+            .bind(to: tableView.rx.items(dataSource: dataSource))
+                .disposed(by: disposeBag)   
         
         
         tableView.rx.modelSelected(Sports.self)
